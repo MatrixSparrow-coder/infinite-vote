@@ -62,11 +62,10 @@ async def create_participation_post(client: Client, message_or_cq, giveaway_id: 
     giveaway = await get_giveaway(giveaway_id)
     channel_id = giveaway["channel_id"]
 
-    # fetch profile photo
+    # fetch profile photo (get_chat_photos is an async generator - no "await" on the call itself)
     photo_file_id = None
     try:
-        photos = await client.get_chat_photos(user.id, limit=1)
-        async for p in photos:
+        async for p in client.get_chat_photos(user.id, limit=1):
             photo_file_id = p.file_id
             break
     except Exception:
