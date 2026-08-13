@@ -38,6 +38,8 @@ HELP_TEXT_RAW = (
 
 @Client.on_message(filters.command("start") & filters.private)
 async def start_cmd(client: Client, message: Message):
+    print(f"!!! START CMD TRIGGERED by {message.from_user.id} !!!", flush=True)
+
     user_id = message.from_user.id
 
     if await is_banned(user_id):
