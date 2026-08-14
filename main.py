@@ -19,6 +19,11 @@ app = Client(
 )
 
 
+@app.on_raw_update()
+async def debug_raw_update(client, update, users, chats):
+    logger.warning(f"!!! RAW UPDATE RECEIVED: {type(update).__name__} !!!")
+
+
 async def main():
     await app.start()
     logger.info("Infinite Bot started.")
